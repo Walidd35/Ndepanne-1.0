@@ -4,8 +4,18 @@ require("dotenv").config();
 const http = require("http");
 const app = require("./app");
 
+const {
+  Client,
+  Role,
+  Service,
+  Technician,
+  Appointment,
+  Availability,
+  Payment
+} = require("./models/association.model");
+
 const  sequelize  = require('./dbConfig/db');
-// const Role = require('./models/roles.model')
+
 // Fonction pour normaliser le port
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
@@ -73,8 +83,15 @@ server.on("listening", () => {
 // Synchronisation de la base de données
 const syncDatabase = async () => {
   try {
-    await sequelize.sync({ force: false  });
+    await sequelize.sync({ force: true  });
     console.log("Tables synchronisées avec succès.");
+    // Créer les rôles par défaut
+    await Role.bulkCreate([
+      { role_name: "admin" },
+      { role_name: "client" }
+    ]);
+    console.log("Rôles par défaut créés");
+
     server.listen(port);
   } catch (error) {
     console.error("Erreur lors de la synchronisation de la base de données :", error);
@@ -87,7 +104,6 @@ sequelize
   .then(() => {
     console.log("Connexion à la base de données réussie.");
     syncDatabase();
-    // initializeRoles()
   })
   .catch((err) => {
     console.error("Échec de la connexion à la base de données :", err);
