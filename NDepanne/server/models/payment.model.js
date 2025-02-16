@@ -13,7 +13,7 @@ Payment.init(
     appointment_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Appointment',
+        model: 'Appointmentsls',
         key: 'id',
       },
     },

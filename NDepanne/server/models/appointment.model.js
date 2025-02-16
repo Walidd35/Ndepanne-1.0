@@ -13,21 +13,21 @@ Appointment.init(
     client_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Client',
+        model: 'Clients',
         key: 'id',
       },
     },
     service_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Service',
+        model: 'Services',
         key: 'id',
       },
     },
     technician_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Technician',
+        model: 'Technicians',
         key: 'id',
       },
     },

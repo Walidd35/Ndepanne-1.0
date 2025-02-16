@@ -13,7 +13,7 @@ Availability.init(
     technician_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'Technician',
+        model: 'Technicians',
         key: 'id',
       },
     },
